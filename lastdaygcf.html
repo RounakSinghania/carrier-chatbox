@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGuide - Career Counselling Chatbot</title>
+    <style>
+        /* CSS Variables for easy customization */
+        :root {
+            --primary-color: #3b82f6;
+            --background-color: #f8fafc;
+            --card-color: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --user-message: #3b82f6;
+            --bot-message: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background-color);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header styles */
+        .chat-header {
+            background: var(--card-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .bot-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .header-text h1 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .header-text p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Chat container */
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* Message styles */
+        .message {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 70%;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-content {
+            background: var(--bot-message);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .message.user .message-content {
+            background: var(--user-message);
+            color: white;
+            border: none;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .bot-msg-avatar {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .user-msg-avatar {
+            background: var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* Quick questions section */
+        .quick-questions {
+            padding: 0 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .quick-questions p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin: 0.75rem 0;
+        }
+
+        .questions-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .question-btn {
+            background: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .question-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Input section */
+        .input-section {
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--card-color);
+        }
+
+        .input-container {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .send-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Chat Header -->
+    <div class="chat-header">
+        <div class="bot-avatar">🤖</div>
+        <div class="header-text">
+            <h1>EduGuide</h1>
+            <p>Education & Career Counselling Assistant</p>
+        </div>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="chat-container" id="chatContainer">
+        <!-- Initial greeting message -->
+        <div class="message">
+            <div class="message-avatar bot-msg-avatar">🤖</div>
+            <div class="message-content">
+                Hello! 👋 I'm EduGuide, your career counselling assistant. How can I help you today?
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Questions -->
+    <div class="quick-questions">
+        <p>Quick questions:</p>
+        <div class="questions-container">
+            <button class="question-btn"
+                onclick="sendPredefinedQuestion('What are the career options after 12th Science?')">
+                What are the career options after 12th Science?
+            </button>
+            <button class="question-btn"
+                onclick="sendPredefinedQuestion('What are the career options after 12th Commerce?')">
+                What are the career options after 12th Commerce?
+            </button>
+            <button class="question-btn"
+                onclick="sendPredefinedQuestion('What are the career options after 12th Arts?')">
+                What are the career options after 12th Arts?
+            </button>
+            <button class="question-btn" onclick="sendPredefinedQuestion('What are the top entrance exams in India?')">
+                What are the top entrance exams in India?
+            </button>
+            <button class="question-btn" onclick="sendPredefinedQuestion('How do I choose the right career path?')">
+                How do I choose the right career path?
+            </button>
+        </div>
+    </div>
+
+    <!-- Input Section -->
+    <div class="input-section">
+        <div class="input-container">
+            <input type="text" class="chat-input" id="userInput"
+                placeholder="Type your question about education and careers..." onkeypress="handleKeyPress(event)">
+            <button class="send-btn" onclick="sendMessage()" id="sendBtn">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Predefined responses based on keywords
+        const responses = {
+            "science": "After 12th Science, you can pursue careers in Engineering (JEE), Medicine (NEET), Research, IT, Biotechnology, Physics, Chemistry, Mathematics, or Pure Sciences. Popular choices include B.Tech, MBBS, B.Sc, BCA, and integrated courses.",
+
+            "commerce": "After 12th Commerce, great career options include CA (Chartered Accountancy), CS (Company Secretary), CMA, B.Com, BBA, Economics, Banking, Finance, Digital Marketing, and Business Management. You can also pursue Law or Hotel Management.",
+
+            "arts": "After 12th Arts, you can explore careers in Journalism, Psychology, Literature, History, Political Science, Sociology, Fine Arts, Teaching, Civil Services, Law, Mass Communication, Fashion Designing, and Creative Writing.",
+
+            "entrance": "Top entrance exams in India include JEE Main/Advanced (Engineering), NEET (Medical), CLAT (Law), CAT (MBA), UPSC (Civil Services), NDA, GATE, and various university-specific exams like BIT-SAT, VITEEE, etc.",
+
+            "choose": "To choose the right career path: 1) Identify your interests and strengths 2) Research different fields 3) Consider job market demand 4) Think about work-life balance 5) Seek guidance from counselors 6) Take career assessment tests 7) Talk to professionals in your field of interest.",
+
+            "engineering": "Engineering offers diverse specializations like Computer Science, Mechanical, Electrical, Civil, Electronics, and more. Top colleges include IITs, NITs, and state engineering colleges. Entrance exam: JEE Main/Advanced.",
+
+            "medical": "Medical field includes MBBS, BDS, AYUSH, Nursing, Pharmacy, and Paramedical courses. Top colleges are AIIMS, government medical colleges. Entrance exam: NEET is mandatory for most medical courses.",
+
+            // Stream after 10th
+            "stream": "Choose a stream based on your interest: Science → Engineering/Medical, Commerce → Business, Arts → Humanities.",
+
+            // Colleges with low marks
+            "college": "With 45% in PCM, you can try private universities like LPU, Amity, Parul, etc.",
+            "low marks": "Don't worry, private colleges accept low PCM percentages.",
+            "btech": "For B.Tech, try private colleges if you don't qualify for NIT/IIT.",
+
+            // AI & Future
+            "ai": "AI is the most futuristic and demanding career.",
+            "artificial intelligence": "AI jobs are growing in all industries.",
+            "machine learning": "ML is a strong career path under AI.",
+
+            // Govt Jobs
+            "government": "Start with NCERT basics, reasoning, and current affairs for SSC/UPSC/Bank exams.",
+            "ssc": "SSC exams need reasoning, GK, maths.",
+            "upsc": "UPSC needs strong general knowledge, current affairs.",
+
+            // Diploma vs 11th
+            "diploma": "Diploma is skill-focused and gives early job opportunities.",
+            "11th": "11th Science is theory-focused and leads to engineering, medicine.",
+
+            // IIT / NIT
+            "iit": "For IIT, strong fundamentals are required. If marks are average, target NIT or private colleges.",
+            "nit": "NITs are good alternatives to IITs.",
+
+            // Gap Year
+            "gap": "A gap year can help with JEE/NEET if used wisely, but keep a backup plan.",
+
+            // Abroad Study
+            "abroad": "Studying abroad gives global exposure but is expensive. India also has great options.",
+            "usa": "USA has top universities but costs are high.",
+            "uk": "UK offers 1-year master's programs.",
+
+            // Engineering branches
+            "cs": "CS is the most popular branch, but choose based on your passion.",
+            "civil": "Civil engineering builds infrastructure like bridges and roads.",
+            "mechanical": "Mechanical is core engineering with wide applications.",
+            "electrical": "Electrical engineers work with power and electronics.",
+
+            // Private College
+            "private": "Private colleges are good if they have strong placement and faculty.",
+
+            // Career Guidance
+            "career": "Think about your interest: tech, business, design, or medicine.",
+            "job": "Jobs depend on your skills, not just marks.",
+            "skill": "Build skills like coding, communication, problem solving.",
+
+            "default": "I'm here to help with education and career guidance! You can ask me about career options after 12th, entrance exams, or how to choose the right path. Feel free to click on the suggested questions below!",
+
+            // Workplace & Professional Growth
+            "internship": "Internships give practical experience and make you job-ready.",
+            "resume": "A good resume highlights your skills, projects, and achievements clearly.",
+            "interview": "Prepare for interviews by practicing common questions and building confidence.",
+            "networking": "Networking helps you connect with professionals and discover new opportunities.",
+            "startup": "Startups give fast growth and learning, but may involve risks.",
+            "freelancing": "Freelancing lets you work independently on projects and build income flexibility.",
+            "remote work": "Remote work allows flexibility, but needs discipline and time management.",
+            "work life balance": "Balancing career and personal life improves productivity and mental health.",
+            "promotion": "Promotions come with performance, skills, and consistent contribution.",
+            "salary": "Salary depends on skills, experience, and industry demand.",
+            "job security": "Stable industries like healthcare, education, and government jobs offer job security.",
+            "layoff": "Layoffs happen in uncertain times. Always keep updating your skills as a safety net.",
+
+            // Higher Education & Upskilling
+            "masters": "A master’s degree adds specialization and can boost career opportunities.",
+            "phd": "PhD is research-focused and opens doors to academia and advanced roles.",
+            "mba": "MBA builds leadership, management, and business skills for corporate growth.",
+            "scholarship": "Scholarships provide financial support for higher education.",
+            "exchange program": "Student exchange programs give global exposure and cultural learning.",
+            "online course": "Online courses like Coursera, Udemy, and edX help you learn new skills anytime.",
+            "certificate": "Professional certificates add credibility and improve job chances.",
+
+            // Modern Careers & Tech
+            "entrepreneurship": "Entrepreneurship means building your own business with innovation and risk-taking.",
+            "digital marketing": "Digital marketing is growing fast with demand in SEO, social media, and content creation.",
+            "blockchain technology": "Blockchain offers careers in cryptocurrency, security, and decentralized apps.",
+            "cloud computing": "Cloud computing specialists manage data storage, servers, and IT infrastructure online.",
+            "ui ux": "UI/UX design focuses on user-friendly apps, websites, and digital experiences.",
+            "cybersecurity": "Cybersecurity professionals protect data and systems from hacking and breaches.",
+            "data analyst": "Data analysts interpret data to help businesses make smart decisions.",
+            "product manager": "Product managers guide product development, balancing tech and customer needs.",
+            "consultant": "Consultants provide expert advice to businesses in specific fields.",
+            "sustainability": "Green jobs and sustainability careers focus on renewable energy and environment protection.",
+
+            // Skills & Personal Development
+            "soft skills": "Soft skills like communication, teamwork, and leadership are crucial for success.",
+            "time management": "Managing time effectively helps in balancing studies, work, and personal goals.",
+            "communication": "Strong communication skills are essential for career growth.",
+            "leadership": "Leadership involves guiding teams, decision-making, and responsibility.",
+            "creativity": "Creativity helps you innovate and solve problems differently.",
+            "critical thinking": "Critical thinking helps you analyze situations logically and make better decisions.",
+            "adaptability": "Adaptability means adjusting quickly to changes in work or study environments.",
+            "emotional intelligence": "Emotional intelligence improves teamwork, leadership, and personal relationships.",
+            "teamwork": "Teamwork builds collaboration, efficiency, and strong workplace culture.",
+            "problem solving": "Problem-solving skills are valued in every industry.",
+
+            // Career Guidance & Challenges
+            "career change": "It’s never too late to change careers — upskilling can help you switch fields.",
+            "mentorship": "Mentors provide valuable career guidance, motivation, and support.",
+            "job hunting": "Job hunting involves searching portals, networking, and preparing applications.",
+            "career growth": "Continuous learning and skill-building lead to steady career growth.",
+            "future of work": "Future jobs will focus on AI, robotics, sustainability, and digital skills.",
+            "global career": "Working abroad provides exposure but requires language, visas, and cultural adaptation.",
+            "work stress": "Work stress is common, but can be managed with breaks, hobbies, and mindfulness.",
+            "failure": "Failure is part of learning. Use it as a stepping stone for success.",
+            "motivation": "Stay motivated with clear goals, consistency, and a growth mindset.",
+            "backup plan": "Always have a backup career plan for security and flexibility."
+
+        };
+
+        // Function to get bot response based on keywords
+        function getBotResponse(userInput) {
+            const input = userInput.toLowerCase();
+            let matchedKeywords = [];
+
+            // Check for multiple keywords
+            // Sort keywords by length (longest first) to avoid partial matches like "ai" inside "blockchain"
+            const sortedKeywords = Object.keys(responses).sort((a, b) => b.length - a.length);
+
+            for (const keyword of sortedKeywords) {
+                if (keyword !== "default" && input.includes(keyword.toLowerCase())) {
+                    matchedKeywords.push(responses[keyword]);
+                }
+            }
+
+            // If multiple matches, combine or return the first
+            return matchedKeywords.length > 0 ? matchedKeywords[0] : responses.default;
+        }
+
+
+        // Function to add message to chat
+        function addMessage(text, isUser = false) {
+            const chatContainer = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : ''}`;
+
+            messageDiv.innerHTML = `
+                <div class="message-avatar ${isUser ? 'user-msg-avatar' : 'bot-msg-avatar'}">
+                    ${isUser ? '👤' : '🤖'}
+                </div>
+                <div class="message-content">${text}</div>
+            `;
+
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Function to send message
+        function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const message = userInput.value.trim();
+
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, true);
+
+            // Get and add bot response after small delay
+            setTimeout(() => {
+                const botResponse = getBotResponse(message);
+                addMessage(botResponse, false);
+            }, 500);
+
+            // Clear input
+            userInput.value = '';
+        }
+
+        // Function to send predefined question
+        function sendPredefinedQuestion(question) {
+            document.getElementById('userInput').value = question;
+            sendMessage();
+        }
+
+        // Handle Enter key press
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Initialize chat (optional: add some demo messages)
+        // You can uncomment these lines to show some example conversation
+        /*
+        setTimeout(() => {
+            addMessage("What are the career options after 12th Science?", true);
+            setTimeout(() => {
+                addMessage(responses.science, false);
+            }, 500);
+        }, 2000);
+        */
+    </script>
+</body>
+
+</html>
