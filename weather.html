@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Weather India</title>
+<style>
+body {
+    font-family: Arial;
+    text-align:center;
+    background: linear-gradient(to right, #56ccf2, #2f80ed);
+    color: white;
+}
+.box {
+    margin-top:100px;
+}
+input {
+    padding:8px;
+    width:200px;
+}
+button {
+    padding:8px;
+    cursor:pointer;
+}
+#result {
+    margin-top:20px;
+    font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1>🌦 India Weather</h1>
+    <input type="text" id="city" placeholder="Enter city (Mumbai)">
+    <button onclick="getWeather()">Check</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+async function getWeather(){
+    let city = document.getElementById("city").value;
+
+    try {
+        // Step 1: Get latitude & longitude from city name
+        let geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`;
+        let geoRes = await fetch(geoUrl);
+        let geoData = await geoRes.json();
+
+        if(!geoData.results){
+            document.getElementById("result").innerHTML = "City not found";
+            return;
+        }
+
+        let lat = geoData.results[0].latitude;
+        let lon = geoData.results[0].longitude;
+        let name = geoData.results[0].name;
+
+        // Step 2: Get weather using lat & lon
+        let weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+        let weatherRes = await fetch(weatherUrl);
+        let weatherData = await weatherRes.json();
+
+        let temp = weatherData.current_weather.temperature;
+        let wind = weatherData.current_weather.windspeed;
+
+        document.getElementById("result").innerHTML =
+            `<b>${name}, India</b><br>
+             🌡 Temp: ${temp}°C <br>
+             💨 Wind: ${wind} km/h`;
+
+    } catch(error){
+        document.getElementById("result").innerHTML = "Error fetching data";
+    }
+}
+</script>
+
+</body>
+</html>

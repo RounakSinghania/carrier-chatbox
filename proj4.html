@@ -1,0 +1,39 @@
+<!--3 friend jack,mashes,john were playing uno cards.they decided to store no of times each person wins inside an array. unfortunately john did not come to play on second day. the number of games each person won on all the three days. you havr to find out which is giving treat on day 3--> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let score = [
+            [3, 2, 5], // Jack's wins over 3 days
+            [4, 3, 6], // Mashes' wins over 3 days
+            [5, 0, 7]  // John's wins over 3 days (0 on day 2)
+        ]
+        let jack=0,john=0,mashes=0;
+        for(let i=0;i<3;i++)
+    {
+        jack+=score[i][0];
+        john+=score[i][1];
+       mashes+=score[i][2];
+    }
+       if(jack<john && jack<mashes)
+       {
+        console.log("jack is giving treat");
+       }
+       else if(john<jack && john<mashes)
+       {
+        console.log("john is giving treat");
+       }
+       else
+       {
+        console.log("mashes is giving treat");
+       }
+        
+    </script>
+</body>
+</html>

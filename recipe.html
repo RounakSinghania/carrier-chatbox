@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Recipe Finder</title>
+<style>
+body {
+    font-family: Arial;
+    text-align:center;
+    background: linear-gradient(to right, #ff9966, #ff5e62);
+    color: white;
+}
+
+.box {
+    margin-top:50px;
+}
+
+input {
+    padding:10px;
+    width:250px;
+}
+
+button {
+    padding:10px;
+    cursor:pointer;
+}
+
+.card {
+    background:white;
+    color:black;
+    width:320px;
+    margin:20px auto;
+    padding:15px;
+    border-radius:10px;
+}
+
+img {
+    width:100%;
+    border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1>🍲 Recipe Finder</h1>
+    <p>Indian 🇮🇳 + Italian 🇮🇹 + Special Dishes</p>
+
+    <input type="text" id="dish" placeholder="Enter dish name">
+    <button onclick="getRecipe()">Search</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+
+// ⭐ Custom Indian Recipes with Images
+const customRecipes = {
+    "lassi": {
+        name: "Lassi",
+        area: "Indian",
+        img: "https://www.indianveggiedelight.com/wp-content/uploads/2023/01/sweet-lassi-recipe-featured.jpg",
+        ingredients: "Curd, Sugar, Ice/Water",
+        instructions: "Blend curd with water. Add sugar for sweet. Serve chilled."
+    },
+    "buttermilk": {
+        name: "Buttermilk",
+        area: "Indian",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSucw6REVCvM3tV28aerY2ZMIQ4ov3mA9kQw&s",
+        ingredients: "Curd, Water, Salt, Jeera",
+        instructions: "Mix curd with water. Add salt and roasted jeera. Serve cool."
+    },
+    "chole bhature": {
+        name: "Chole Bhature",
+        area: "Indian",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvZNFg800X79gxUUJfrAXbuYA0H4WBJo0WBQ&s",
+        ingredients: "Chickpeas, Flour, Spices, Oil",
+        instructions: "Cook spicy chole. Fry bhature dough until fluffy. Serve hot."
+    },
+    "kulche": {
+        name: "Kulche",
+        area: "Indian",
+        img: "https://source.unsplash.com/300x200/?kulcha",
+        ingredients: "Flour, Curd, Baking soda",
+        instructions: "Prepare soft dough, cook on tawa. Serve with chole."
+    },
+    "maggi": {
+        name: "Maggi",
+        area: "Indian",
+        img: "https://source.unsplash.com/300x200/?noodles",
+        ingredients: "Maggi noodles, Water, Masala",
+        instructions: "Boil water, add noodles and masala. Cook for 2 minutes."
+    },
+    "fish fry": {
+        name: "Fish Fry",
+        area: "Indian",
+        img: "https://source.unsplash.com/300x200/?fried-fish",
+        ingredients: "Fish, Spices, Oil",
+        instructions: "Marinate fish with spices and fry until crispy."
+    },
+    "paneer tikka": {
+        name: "Paneer Tikka",
+        area: "Indian",
+        img: "https://source.unsplash.com/300x200/?paneer-tikka",
+        ingredients: "Paneer, Yogurt, Spices",
+        instructions: "Marinate paneer and grill or roast."
+    },
+    "tandoori chicken": {
+        name: "Tandoori Chicken",
+        area: "Indian",
+        img: "https://www.cubesnjuliennes.com/wp-content/uploads/2022/12/Tandoori-Chicken-Recipe.jpg",
+        ingredients: "Chicken, Yogurt, Spices",
+        instructions: "Marinate chicken and cook in oven/tandoor."
+    }
+};
+
+async function getRecipe(){
+    let dish = document.getElementById("dish").value.toLowerCase();
+    let resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = "";
+
+    // ✅ Custom recipes first
+    if(customRecipes[dish]){
+        let r = customRecipes[dish];
+
+        resultDiv.innerHTML = `
+            <div class="card">
+                <h2>${r.name}</h2>
+                <img src="${r.img}">
+                <p><b>Cuisine:</b> ${r.area}</p>
+                <p><b>Ingredients:</b> ${r.ingredients}</p>
+                <p><b>Instructions:</b> ${r.instructions}</p>
+            </div>
+        `;
+        return;
+    }
+
+    // 🌍 API call
+    let url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${dish}`;
+    let res = await fetch(url);
+    let data = await res.json();
+
+    if(data.meals){
+        data.meals.forEach(meal => {
+            if(meal.strArea == "Indian" || meal.strArea == "Italian"){
+
+                let ingredients = "";
+
+                for(let i=1; i<=10; i++){
+                    if(meal["strIngredient"+i]){
+                        ingredients += meal["strIngredient"+i] + ", ";
+                    }
+                }
+
+                resultDiv.innerHTML += `
+                    <div class="card">
+                        <h2>${meal.strMeal}</h2>
+                        <img src="${meal.strMealThumb}">
+                        <p><b>Cuisine:</b> ${meal.strArea}</p>
+                        <p><b>Ingredients:</b> ${ingredients}</p>
+                        <p><b>Instructions:</b> ${meal.strInstructions.substring(0,150)}...</p>
+                    </div>
+                `;
+            }
+        });
+
+    } else {
+        resultDiv.innerHTML = "No recipe found";
+    }
+}
+</script>
+
+</body>
+</html>

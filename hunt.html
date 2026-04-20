@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guess The Number</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #acb6e5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .game-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      width: 320px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    select, input {
+      padding: 10px;
+      width: 85%;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    .message {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .attempts {
+      margin-top: 5px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<div class="game-box">
+  <h2>🎯 Guess the Number</h2>
+
+  <select id="level" onchange="setLevel()">
+    <option value="easy">Easy (1–10)</option>
+    <option value="medium">Medium (1–100)</option>
+    <option value="hard">Hard (1–1000)</option>
+  </select>
+
+  <p id="rangeText">Range: 1 – 10</p>
+
+  <input type="number" id="guessInput" placeholder="Enter your guess">
+  <br>
+
+  <button onclick="checkGuess()">Guess</button>
+  <button onclick="restartGame()">Restart</button>
+
+  <div class="message" id="message"></div>
+  <div class="attempts" id="attempts"></div>
+</div>
+
+<script>
+  let min = 1, max = 10;
+  let randomNumber = generateNumber();
+  let attempts = 0;
+
+  function generateNumber() {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function setLevel() {
+    let level = document.getElementById("level").value;
+
+    if (level === "easy") {
+      min = 1; max = 10;
+    } else if (level === "medium") {
+      min = 1; max = 100;
+    } else {
+      min = 1; max = 1000;
+    }
+
+    document.getElementById("rangeText").textContent = `Range: ${min} – ${max}`;
+    restartGame();
+  }
+
+  function checkGuess() {
+    let userGuess = Number(document.getElementById("guessInput").value);
+    let message = document.getElementById("message");
+    let attemptText = document.getElementById("attempts");
+
+    if (!userGuess || userGuess < min || userGuess > max) {
+      message.textContent = `⚠️ Enter number between ${min} and ${max}`;
+      return;
+    }
+
+    attempts++;
+
+    if (userGuess === randomNumber) {
+      message.textContent = "🎉 Correct! You guessed it!";
+      message.style.color = "green";
+    } 
+    else if (userGuess > randomNumber) {
+      message.textContent = "📉 Too high!";
+      message.style.color = "red";
+    } 
+    else {
+      message.textContent = "📈 Too low!";
+      message.style.color = "red";
+    }
+
+    attemptText.textContent = "Attempts: " + attempts;
+  }
+
+  function restartGame() {
+    attempts = 0;
+    randomNumber = generateNumber();
+    document.getElementById("message").textContent = "";
+    document.getElementById("attempts").textContent = "";
+    document.getElementById("guessInput").value = "";
+  }
+
+  // Initialize
+  setLevel();
+</script>
+
+</body>
+</html>

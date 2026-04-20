@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pizza Order</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #ffe6cc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 280px;
+      text-align: center;
+      margin: 10px;
+    }
+
+    input, select {
+      width: 100%;
+      margin: 8px 0;
+      padding: 8px;
+    }
+
+    button {
+      padding: 10px;
+      width: 100%;
+      background: orange;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 10px;
+      background: #f2f2f2;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>🍕 Pizza Order</h2>
+
+  <input type="text" id="name" placeholder="Your Name">
+
+  <select id="size">
+    <option value="100">Small (₹100)</option>
+    <option value="200">Medium (₹200)</option>
+    <option value="300">Large (₹300)</option>
+  </select>
+
+  <input type="number" id="quantity" placeholder="Quantity">
+
+  <button onclick="calculateOrder()">Order Now</button>
+
+  <div class="result" id="output"></div>
+</div>
+</body>
+<script>
+    function calculateOrder(){
+        let name = document.getElementById("name").value;
+        let price = Number(document.getElementById("size").value);
+        let quantity = Number(document.getElementById("quantity").value);
+
+        //clcuate total
+        let total =price*quantity;
+
+        //dispaly result
+        document.getElementById("output").innerHTML = "Hello " + name + "! <br>" + "Total Bill: $"+ total; 
+
+    }
+</script>

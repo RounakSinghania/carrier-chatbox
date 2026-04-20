@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Password Generator</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+
+    .options {
+      margin: 10px 0;
+    }
+
+    .options label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #22c55e;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #16a34a;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Password Generator</h2>
+
+  <input type="text" id="password" placeholder="Your password" readonly>
+
+  <label>Password Length: <span id="lenVal">12</span></label>
+  <input type="range" id="length" min="4" max="20" value="12">
+
+  <div class="options">
+    <label><input type="checkbox" id="uppercase" checked> Uppercase (A-Z)</label>
+    <label><input type="checkbox" id="lowercase" checked> Lowercase (a-z)</label>
+    <label><input type="checkbox" id="numbers" checked> Numbers (0-9)</label>
+    <label><input type="checkbox" id="symbols"> Symbols (!@#)</label>
+  </div>
+
+  <button onclick="generatePassword()">Generate Password</button>
+</div>
+
+<script>
+function generatePassword() {
+  const length = document.getElementById("length").value;
+  const hasUpper = document.getElementById("uppercase").checked;
+  const hasLower = document.getElementById("lowercase").checked;
+  const hasNumber = document.getElementById("numbers").checked;
+  const hasSymbol = document.getElementById("symbols").checked;
+
+  const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const lowerChars = "abcdefghijklmnopqrstuvwxyz";
+  const numberChars = "0123456789";
+  const symbolChars = "!@#$%^&*()_+[]{}|;:,.<>?";
+
+  let allChars = "";
+
+  if (hasUpper) allChars += upperChars;
+  if (hasLower) allChars += lowerChars;
+  if (hasNumber) allChars += numberChars;
+  if (hasSymbol) allChars += symbolChars;
+
+  if (allChars === "") {
+    alert("Select at least one option!");
+    return;
+  }
+
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    password += allChars[Math.floor(Math.random() * allChars.length)];
+  }
+
+  document.getElementById("password").value = password;
+}
+
+// Update length display
+document.getElementById("length").addEventListener("input", function() {
+  document.getElementById("lenVal").textContent = this.value;
+});
+</script>
+
+</body>
+</html>

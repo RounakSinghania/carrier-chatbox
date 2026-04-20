@@ -1,0 +1,146 @@
+<!--as a frontend dev www technologies you have to design a web application for design a bill calculator for your clint having supermart they have specified that is a customer shops for more then 2000rs they get 10%dis, if they shop for 5000rs they get 20% dis and if they are premium members they get additioal 5% dis calculate the total bill amount.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Supermart Bill Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      width: 320px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #28a745;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #218838;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>🛒 Supermart Bill</h2>
+
+  <input type="number" id="amount" placeholder="Enter total amount (₹)" />
+
+  <label>
+    <input type="checkbox" id="premium"> Premium Member (+5% discount)
+  </label>
+
+  <button onclick="calculateBill()">Calculate Bill</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+  function calculateBill() {
+    let amount = parseFloat(document.getElementById("amount").value);
+    let isPremium = document.getElementById("premium").checked;
+
+    if (isNaN(amount) || amount <= 0) {
+      document.getElementById("result").innerHTML = "⚠️ Enter valid amount!";
+      return;
+    }
+
+    let discount = 0;
+
+    // Base discount
+    if (amount > 5000) {
+      discount = 20;
+    } else if (amount > 2000) {
+      discount = 10;
+    }
+
+    
+    if (isPremium) {
+      discount += 5;
+    }
+
+    let discountAmount = (amount * discount) / 100;
+    let finalAmount = amount - discountAmount;
+
+    document.getElementById("result").innerHTML =
+      `Total: ₹${amount}<br>
+       Discount: ${discount}% (₹${discountAmount.toFixed(2)})<br>
+       Final Bill: ₹${finalAmount.toFixed(2)}`;
+  }
+</script>
+
+</body>
+</html>
+    <script>
+  function calculateOrder() {
+    let name = document.getElementById("name").value;
+    let price = Number(document.getElementById("size").value);
+    let quantity = Number(document.getElementById("quantity").value);
+
+    
+    let cheese = document.getElementById("cheese").checked;
+    let olives = document.getElementById("olives").checked;
+    let mushroom = document.getElementById("mushroom").checked;
+
+    let total = price * quantity;
+
+    let extras = [];
+    let extraCost = 0;
+
+    if (cheese) {
+      extras.push("Cheese");
+      extraCost += 30;
+    }
+
+    if (olives) {
+      extras.push("Olives");
+      extraCost += 20;
+    }
+
+    if (mushroom) {
+      extras.push("Mushroom");
+      extraCost += 25;
+    }
+
+    total += extraCost;
+
+    document.getElementById("output").innerHTML =
+      "Hello " + name + "!<br>" +
+      "Total Bill: ₹" + total + "<br>" +
+      (extras.length ? "Extras: " + extras.join(", ") : "No extras selected");
+  }
+</script>
