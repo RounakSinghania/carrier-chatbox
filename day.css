@@ -1,0 +1,64 @@
+ .box
+{
+    background-color: #ac8cd0ea;
+    outline: 3px solid red;
+    border: 3px solid lightgreen;
+    padding: 5px 10px;
+    text-align: center;
+}
+.h1
+{
+ background-color: peachpuff;
+ color: midnightblue;
+ outline: 3px solid red;
+    border: 3px solid lightgreen;
+    padding: 5px 10px;
+    text-align: center;
+}
+.P
+{
+    background-color: antiquewhite;
+    color: black;
+     outline: 3px solid red;
+    border: 3px solid lightgreen;
+    padding: 5px 10px;
+    text-align: center;
+}
+.div
+{
+  background-color: rgb(56, 29, 5);
+ color: rgb(211, 211, 240);
+ outline: 3px solid red;
+    border: 3px solid lightgreen;
+    padding: 5px 10px;
+    text-align: center;
+}
+.h2
+{
+    background-color: rgb(56, 29, 5);
+ color: rgb(211, 211, 240);
+ outline: 3px solid red;
+    border: 3px solid lightgreen;
+    padding:  10px;
+    text-align: justify;
+    width: 200px;
+    height: 200px;  
+}
+.p2
+{
+    background-color: rgb(56, 29, 5);
+ color: rgb(211, 211, 240);
+ outline: 3px solid red;
+    border: 3px solid lightgreen;
+    padding: 5px 10px;
+    text-align: left;
+}
+.p1
+{
+    color: rgb(56, 29, 5);
+  background-color: rgb(194, 194, 236);
+ outline: 3px solid red;
+    border: 3px solid lightgreen;
+    padding: 5px 10px;
+    text-align: right;
+}

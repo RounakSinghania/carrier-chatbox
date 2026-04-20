@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lone Wolf Runner Game</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #87CEEB; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Game states
+        let gameState = 'menu'; // 'menu', 'playing', 'gameOver'
+        let score = 0;
+        let speed = 5;
+        let lane = 1; // 0: left, 1: middle, 2: right
+        let runnerY = canvas.height - 150;
+        let runnerHeight = 50;
+        let isJumping = false;
+        let isSliding = false;
+        let jumpHeight = 0;
+        let slideTimer = 0;
+        let werewolfX = canvas.width + 100;
+        let obstacles = [];
+        let backgroundX = 0;
+
+        // Touch/mouse handling
+        let touchStartY = 0;
+        let touchStartX = 0;
+        canvas.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+            touchStartX = e.touches[0].clientX;
+        });
+        canvas.addEventListener('touchend', (e) => {
+            const touchEndY = e.changedTouches[0].clientY;
+            const touchEndX = e.changedTouches[0].clientX;
+            if (gameState === 'menu') {
+                gameState = 'playing';
+            } else if (gameState === 'playing') {
+                if (Math.abs(touchEndX - touchStartX) > 50) {
+                    if (touchEndX > touchStartX && lane < 2) lane++;
+                    else if (touchEndX < touchStartX && lane > 0) lane--;
+                } else if (touchEndY < touchStartY - 50) {
+                    isJumping = true;
+                } else if (touchEndY > touchStartY + 50) {
+                    isSliding = true;
+                    slideTimer = 30;
+                }
+            } else if (gameState === 'gameOver') {
+                resetGame();
+            }
+        });
+        canvas.addEventListener('mousedown', (e) => {
+            if (gameState === 'menu') {
+                gameState = 'playing';
+            } else if (gameState === 'playing') {
+                isJumping = true;
+            } else if (gameState === 'gameOver') {
+                resetGame();
+            }
+        });
+
+        function resetGame() {
+            gameState = 'menu';
+            score = 0;
+            speed = 5;
+            lane = 1;
+            runnerY = canvas.height - 150;
+            isJumping = false;
+            isSliding = false;
+            jumpHeight = 0;
+            slideTimer = 0;
+            werewolfX = canvas.width + 100;
+            obstacles = [];
+            backgroundX = 0;
+        }
+
+        function update() {
+            if (gameState !== 'playing') return;
+
+            // Update background
+            backgroundX -= speed;
+            if (backgroundX <= -canvas.width) backgroundX = 0;
+
+            // Update runner
+            if (isJumping) {
+                jumpHeight += 10;
+                if (jumpHeight >= 100) isJumping = false;
+            } else if (jumpHeight > 0) {
+                jumpHeight -= 10;
+            }
+            if (isSliding && slideTimer > 0) {
+                slideTimer--;
+                runnerHeight = 25;
+            } else {
+                isSliding = false;
+                runnerHeight = 50;
+            }
+
+            // Update obstacles
+            obstacles.forEach(ob => ob.x -= speed);
+            obstacles = obstacles.filter(ob => ob.x > -50);
+            if (Math.random() < 0.01) {
+                const lanePos = [canvas.width / 6, canvas.width / 2, 5 * canvas.width / 6][Math.floor(Math.random() * 3)];
+                obstacles.push({ x: canvas.width, y: canvas.height - 100, width: 50, height: 50, lane: Math.floor(Math.random() * 3) });
+            }
+
+            // Check collisions
+            const runnerX = [canvas.width / 6 - 25, canvas.width / 2 - 25, 5 * canvas.width / 6 - 25][lane];
+            obstacles.forEach(ob => {
+                if (ob.lane === lane && Math.abs(ob.x - runnerX) < 50 && Math.abs((runnerY - jumpHeight) - ob.y) < 50 && !isJumping && !isSliding) {
+                    gameState = 'gameOver';
+                }
+            });
+
+            // Update werewolf
+            werewolfX -= speed + 1;
+            if (werewolfX < runnerX - 50) {
+                gameState = 'gameOver';
+            }
+
+            // Update score and speed
+            score += speed;
+            speed += 0.001;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (gameState === 'menu') {
+                ctx.fillStyle = '#000';
+                ctx.font = '50px Arial';
+                ctx.fillText('Lone Wolf', canvas.width / 2 - 150, canvas.height / 2 - 50);
+                ctx.font = '30px Arial';
+                ctx.fillText('Tap to Start', canvas.width / 2 - 100, canvas.height / 2 + 50);
+            } else if (gameState === 'playing') {
+                // Draw background
+                ctx.fillStyle = '#228B22'; // Grass
+                ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
+                ctx.fillStyle = '#696969'; // Road
+                ctx.fillRect(0, canvas.height - 80, canvas.width, 60);
+                // Trees and buildings (simple shapes)
+                for (let i = 0; i < 10; i++) {
+                    ctx.fillStyle = '#8B4513';
+                    ctx.fillRect(backgroundX + i * 200, canvas.height - 200, 20, 100);
+                    ctx.fillStyle = '#228B22';
+                    ctx.fillRect(backgroundX + i * 200 - 10, canvas.height - 220, 40, 20);
+                }
+                for (let i = 0; i < 5; i++) {
+                    ctx.fillStyle = '#A9A9A9';
+                    ctx.fillRect(backgroundX + 100 + i * 300, canvas.height - 250, 50, 150);
+                }
+
+                // Draw lanes
+                ctx.strokeStyle = '#FFF';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(canvas.width / 3, canvas.height - 100);
+                ctx.lineTo(canvas.width / 3, canvas.height);
+                ctx.moveTo(2 * canvas.width / 3, canvas.height - 100);
+                ctx.lineTo(2 * canvas.width / 3, canvas.height);
+                ctx.stroke();
+
+                // Draw runner
+                const runnerX = [canvas.width / 6 - 25, canvas.width / 2 - 25, 5 * canvas.width / 6 - 25][lane];
+                ctx.fillStyle = '#FF0000';
+                ctx.fillRect(runnerX, runnerY - jumpHeight, 50, runnerHeight);
+
+                // Draw obstacles
+                ctx.fillStyle = '#8B4513';
+                obstacles.forEach(ob => ctx.fillRect(ob.x, ob.y, ob.width, ob.height));
+
+                // Draw werewolf
+                ctx.fillStyle = '#000';
+                ctx.fillRect(werewolfX, runnerY, 50, 50);
+
+                // Draw score
+                ctx.fillStyle = '#000';
+                ctx.font = '20px Arial';
+                ctx.fillText(Score: ${Math.floor(score)}, 10, 30);
+            } else if (gameState === 'gameOver') {
+                ctx.fillStyle = '#000';
+                ctx.font = '50px Arial';
+                ctx.fillText('Game Over', canvas.width / 2 - 150, canvas.height / 2 - 50);
+                ctx.font = '30px Arial';
+                ctx.fillText('Score:${Math.floor(score)}, canvas.width / 2 - 100, canvas.height / 2);
+                ctx.fillText('Tap to Restart', canvas.width / 2 - 120, canvas.height / 2 + 50);
+            }
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+        gameLoop();
+    </script>
+</body>
+</html>

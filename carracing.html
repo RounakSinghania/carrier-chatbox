@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Infinite Road Racer (Instant Crash Sound)</title>
+
+  <style>
+    body{
+      margin:0;
+      background:#000;
+      font-family:Arial;
+      color:#fff;
+    }
+    .wrap{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      padding:20px;
+    }
+    .game-card{
+      width:820px;
+      max-width:95vw;
+      aspect-ratio:16/9;
+      background:#111;
+      border-radius:14px;
+      overflow:hidden;
+      position:relative;
+    }
+    canvas{
+      width:100%;
+      height:100%;
+      background:#000;
+      display:block;
+    }
+    .hud{
+      position:absolute;
+      top:10px;
+      left:10px;
+      gap:10px;
+      display:flex;
+      z-index:10;
+    }
+    .panel{
+      background:rgba(255,255,255,0.2);
+      padding:8px 12px;
+      border-radius:6px;
+      font-weight:bold;
+    }
+    .controls{
+      position:absolute;
+      right:10px;
+      top:10px;
+      gap:10px;
+      display:flex;
+      z-index:10;
+    }
+    .btn{
+      background:rgba(255,255,255,0.25);
+      padding:8px 12px;
+      border:none;
+      border-radius:6px;
+      color:#fff;
+      font-weight:bold;
+      cursor:pointer;
+    }
+    .center-msg{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.55);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:20;
+    }
+    .center-msg .box{
+      background:rgba(0,0,0,0.7);
+      padding:20px;
+      border-radius:10px;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="game-card">
+
+    <canvas id="gameCanvas" width="1280" height="720"></canvas>
+
+    <!-- ⭐ YOUR CRASH SOUND -->
+    <audio id="crashSound" src="111c23a5-b444-4f4c-a03b-aa6f96eb9328.mp3" preload="auto"></audio>
+
+    <!-- HUD -->
+    <div class="hud">
+      <div class="panel" id="scorePanel">Distance: 0</div>
+      <div class="panel" id="speedPanel">Speed: 0 km/h</div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="controls">
+      <button class="btn" id="pauseBtn">Pause</button>
+      <button class="btn" id="restartBtn">Restart</button>
+    </div>
+
+    <!-- Start / Game Over Screen -->
+    <div class="center-msg" id="centerMsg">
+      <div class="box">
+        <h1>Infinite Road Racer</h1>
+        <p>Press Start</p>
+        <button class="btn" id="startBtn">Start</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+
+  const canvas = document.getElementById("gameCanvas");
+  const ctx = canvas.getContext("2d");
+  const crashSound = document.getElementById("crashSound");
+
+  function fit(){
+    const r = canvas.getBoundingClientRect();
+    canvas.width = r.width * devicePixelRatio;
+    canvas.height = r.height * devicePixelRatio;
+    ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  }
+  window.addEventListener("resize", fit);
+  fit();
+
+  // UI elements
+  const scorePanel = document.getElementById("scorePanel");
+  const speedPanel = document.getElementById("speedPanel");
+  const startBtn = document.getElementById("startBtn");
+  const restartBtn = document.getElementById("restartBtn");
+  const pauseBtn = document.getElementById("pauseBtn");
+  const centerMsg = document.getElementById("centerMsg");
+
+  // Game vars
+  const W = 1280, H = 720;
+  const road = {x:W*0.17, width:W*0.66, laneCount:3};
+  road.laneWidth = road.width / road.laneCount;
+
+  const player = {
+    x: road.x + road.width/2 - (road.laneWidth*0.6)/2,
+    y: H - 150,
+    width: road.laneWidth*0.6,
+    height:80,
+    speedX:0,
+    maxSpeedX:900,
+    accelX:4800,
+    friction:0.9,
+    alive:true
+  };
+
+  let running=false, paused=false;
+  let distance=0, speed=350, mult=1;
+  let spawnTimer=0;
+  let obstacles=[];
+  const keys={left:false,right:false};
+
+  // ⭐ Unlock audio on first click (Fix for Chrome autoplay)
+  function unlockAudio(){
+    crashSound.volume = 1;
+    crashSound.play().then(()=>{
+      crashSound.pause();
+      crashSound.currentTime = 0;
+    }).catch(()=>{});
+  }
+
+  function updateHUD(){
+    scorePanel.textContent = "Distance: " + Math.round(distance);
+    speedPanel.textContent = "Speed: " + Math.round(speed*mult*0.22) + " km/h";
+  }
+
+  function reset(){
+    obstacles=[];
+    distance=0;
+    speed=350;
+    mult=1;
+    spawnTimer=0;
+    player.x = road.x + road.width/2 - player.width/2;
+    player.speedX=0;
+    player.alive=true;
+    paused=false;
+    updateHUD();
+  }
+
+  function start(){
+    unlockAudio();  // ⭐ VERY IMPORTANT
+    reset();
+    running=true;
+    centerMsg.style.display="none";
+    last=performance.now();
+    requestAnimationFrame(loop);
+  }
+
+  function endGame(){
+    running=false;
+    player.alive=false;
+
+    centerMsg.style.display="flex";
+    centerMsg.querySelector(".box").innerHTML =
+    `<h1>You Crashed!</h1>
+     <p>Distance: ${Math.round(distance)}</p>
+     <button class='btn' id='again'>Play Again</button>`;
+
+    document.getElementById("again").onclick = start;
+  }
+
+  function spawnObstacle(){
+    const lane = Math.floor(Math.random()*road.laneCount);
+    const w = road.laneWidth*0.6;
+    const h = 90;
+    const x = road.x + lane*road.laneWidth + (road.laneWidth-w)/2;
+    const y = -h-20;
+    obstacles.push({x,y,width:w,height:h,color:"#e74c3c"});
+  }
+
+  function collide(a,b){
+    return !(a.x+a.width<b.x || a.x>b.x+b.width ||
+             a.y+a.height<b.y || a.y>b.y+b.height);
+  }
+
+  let last=performance.now();
+  function loop(now){
+    if(!running) return;
+
+    const dt = Math.min(0.033,(now-last)/1000);
+    last=now;
+
+    if(!paused && player.alive){
+
+      // movement
+      let dir=0;
+      if(keys.left) dir--;
+      if(keys.right) dir++;
+
+      if(dir!==0) player.speedX += dir*player.accelX*dt;
+      else player.speedX *= Math.pow(player.friction,dt*60);
+
+      player.speedX = Math.max(-player.maxSpeedX,Math.min(player.speedX,player.maxSpeedX));
+      player.x += player.speedX*dt;
+
+      const minX = road.x+5;
+      const maxX = road.x + road.width - player.width - 5;
+      player.x = Math.max(minX, Math.min(player.x, maxX));
+
+      const forward = speed*mult*dt;
+      distance += forward*0.06;
+
+      mult += dt*0.004;
+
+      spawnTimer -= dt;
+      if(spawnTimer <= 0){
+        spawnObstacle();
+        spawnTimer = 0.9;
+      }
+
+      // move obstacles
+      for(let o of obstacles){
+        o.y += forward * 1.4;
+      }
+
+      // ⭐ INSTANT CRASH SOUND ⭐
+      for(let o of obstacles){
+        if(collide(player,o)){
+
+          const boom = crashSound.cloneNode(true);
+          boom.currentTime = 0;
+          boom.play().catch(()=>{});
+
+          endGame();
+          return;
+        }
+      }
+
+      updateHUD();
+    }
+
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  function sx(x){ return x*canvas.clientWidth/W; }
+  function sy(y){ return y*canvas.clientHeight/H; }
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    // road
+    const rx = sx(road.x);
+    const rw = sx(road.width);
+    ctx.fillStyle="#2b2b2b";
+    ctx.fillRect(rx,0,rw,canvas.clientHeight);
+
+    // lane lines
+    for(let i=1;i<road.laneCount;i++){
+      const lx=sx(road.x + i*road.laneWidth);
+      ctx.strokeStyle="#fff";
+      ctx.lineWidth=4;
+      ctx.beginPath();
+      ctx.moveTo(lx,0);
+      ctx.lineTo(lx,canvas.clientHeight);
+      ctx.stroke();
+    }
+
+    // obstacles
+    for(let o of obstacles){
+      ctx.fillStyle=o.color;
+      ctx.fillRect(sx(o.x),sy(o.y),sx(o.width),sy(o.height));
+    }
+
+    // player car
+    ctx.fillStyle="#1abc9c";
+    ctx.fillRect(sx(player.x),sy(player.y),sx(player.width),sy(player.height));
+  }
+
+  // controls
+  window.addEventListener("keydown", e=>{
+    if(e.key==="ArrowLeft"||e.key==="a") keys.left=true;
+    if(e.key==="ArrowRight"||e.key==="d") keys.right=true;
+  });
+  window.addEventListener("keyup", e=>{
+    if(e.key==="ArrowLeft"||e.key==="a") keys.left=false;
+    if(e.key==="ArrowRight"||e.key==="d") keys.right=false;
+  });
+
+  startBtn.onclick=start;
+  restartBtn.onclick=start;
+  pauseBtn.onclick=()=>{
+    paused=!paused;
+    pauseBtn.textContent = paused ? "Resume" : "Pause";
+  };
+
+})();
+</script>
+
+</body>
+</html>

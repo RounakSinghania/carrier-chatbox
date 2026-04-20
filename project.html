@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taste of Asia - Street Food Showcase</title>
+    <link rel="stylesheet" href="project.css">
+</head>
+
+<body>
+    <header>
+        <h1>Taste of Asia</h1>
+        <p class="tagline">Explore Delicious Street Foods Across Asia</p>
+
+        <nav>
+            <a href="#">Home</a>
+            <a href="#india">India</a>
+            <a href="#japan">Japan</a>
+            <a href="#china">China</a>
+            <a href="#thailand">Thailand</a>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h2>Asian Street Food Showcase</h2>
+        <p>Experience mouth-watering flavors, rich culture, and authentic recipes.</p>
+    </section>
+
+    <!-- GRID SECTION -->
+    <section class="food-section">
+
+        <!-- INDIA -->
+        <h2 id="india" class="country-title">🇮🇳 India</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="data:image/jpeg;base64,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" alt="">
+                <div class="overlay">
+                    <h3>Vada Pav</h3>
+                    <p>Mumbai’s iconic spicy potato burger.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://cdn.uengage.io/uploads/64445/image-471433-1750505854.jpeg" alt="">
+                <div class="overlay">
+                    <h3>Pani Puri</h3>
+                    <p>Crunchy puris filled with tangy flavored water.</p>
+                </div>
+            </div>
+        </div>
+       <hr>
+        <!-- JAPAN -->
+        <h2 id="japan" class="country-title">🇯🇵 Japan</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://s.hungryghostfoodandtravel.com/media/20240912224148/takoyaki-recipe_done.png" alt="">
+                <div class="overlay">
+                    <h3>Takoyaki</h3>
+                    <p>Octopus-filled crispy balls with sauces.</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <img src="https://www.kikkoman.eu/fileadmin/_processed_/f/0/csm_1103-recipe-page-Spicy-Kimchi-Ramen-with-Pork_desktop_c8dc4e51e8.jpg" alt="">
+                <div class="overlay">
+                    <h3>Ramen</h3>
+                    <p>Hot noodles with broth, meat, and toppings.</p>
+                </div>
+            </div>
+        </div>
+      <hr>
+        <!-- CHINA -->
+        <h2 id="china" class="country-title">🇨🇳 China</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://www.recipetineats.com/tachyon/2022/09/Vegetable-Dumplings-1-on-plate.jpg?resize=500%2C375" alt="">
+                <div class="overlay">
+                    <h3>Dumplings</h3>
+                    <p>Soft steamed parcels filled with meat/veg.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.getrecipekit.com/20221130023757-untitled-design-12-3.png?aspect_ratio=16:9&quality=90&" alt="">
+                <div class="overlay">
+                    <h3>Noodles</h3>
+                    <p>Traditional hand-pulled Chinese noodles.</p>
+                </div>
+            </div>
+        </div>
+<hr>
+        <!-- THAILAND -->
+        <h2 id="thailand" class="country-title">🇹🇭 Thailand</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://www.seriouseats.com/thmb/gLZ3ZlKXVTGpgspZvvS8Afnw2TA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/20250214-SEA-PadThai-AmandaSuarez-hero-4251c730d61a40ba935f2d43153d6862.jpg" alt="">
+                <div class="overlay">
+                    <h3>Pad Thai</h3>
+                    <p>Stir-fried rice noodles with tamarind flavor.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://www.eatingthaifood.com/wp-content/uploads/2016/04/mango-sticky-rice.jpg" alt="">
+                <div class="overlay">
+                    <h3>Mango Sticky Rice</h3>
+                    <p>Sweet mango served with coconut sticky rice.</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+<hr>
+    <footer>
+        <p>© 2025 Taste of Asia | Designed with ❤️</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Taste of Asia — Pastel Street Food</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="pro.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <svg class="logo" width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <circle cx="12" cy="12" r="10" fill="#fff3f8"/>
+        <path d="M8 13c1.5 1 3.5 1 5 0" stroke="#ff9bb3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 8v.01" stroke="#ff9bb3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <h1>Taste of Asia</h1>
+        <p class="small">Pastel Street Food Showcase</p>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="#featured">Featured</a>
+      <a href="#countries">Countries</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h2>Pastel Flavors of Asia</h2>
+        <p>Discover street-food recipes, beautiful photography, and quick facts — all wrapped in soft pastel vibes.</p>
+        <a class="btn" href="#featured">Explore Recipes</a>
+      </div>
+
+      <div class="hero-art">
+        <!-- floating card -->
+        <div class="float-card">
+          <img src="https://www.seriouseats.com/thmb/gLZ3ZlKXVTGpgspZvvS8Afnw2TA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/20250214-SEA-PadThai-AmandaSuarez-hero-4251c730d61a40ba935f2d43153d6862.jpg" alt="Pad Thai">
+          <div class="float-card-label">
+            <strong>Pad Thai</strong>
+            <span>Thailand</span>
+          </div>
+        </div>
+
+        <!-- decorative pastel blobs 
+        <svg class="blob blob-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#ffdbe8" d="M40.6,-54.8C50.6,-47.8,56.6,-35.3,61.2,-21.9C65.8,-8.6,69.1,5.6,64.2,17.8C59.3,30.1,46.3,40.3,33.3,47.6C20.4,54.9,7.2,59.3,-5.8,63.2C-18.8,67.2,-37.6,70.6,-50,63C-62.4,55.4,-68.5,36.8,-70.6,19.1C-72.7,1.4,-70.7,-15.4,-62.5,-28.8C-54.2,-42.1,-39.8,-52,-24.6,-57.2C-9.4,-62.4,7.7,-62.9,22.6,-58.3C37.5,-53.6,51.9,-45.6,40.6,-54.8Z" transform="translate(100 100)" />
+        </svg> 
+
+        <svg class="blob blob-2" viewBox="0 0 200 200">
+          <path fill="#e7f7ff" d="M29.8,-35.3C44.7,-28.5,63.8,-24.8,72.3,-14.9C80.8,-5.1,78.6,11.3,69.2,23.1C59.7,34.8,43.9,42,28.6,47.6C13.3,53.2,-1.5,57.3,-14.2,53C-26.8,48.8,-37.4,36.2,-45.3,22.7C-53.2,9.1,-58.4,-6.3,-53.8,-20.6C-49.2,-35,-34.8,-48.4,-19,-55C-3.3,-61.6,13.8,-61.4,29.8,-35.3Z" transform="translate(100 100)"/>
+        </svg>
+      </div>
+    </div>
+-->
+    <!-- soft divider -->
+    <div class="wave-divider" aria-hidden>
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#fff"></path></svg>
+    </div>
+  </section>
+
+  <!-- FEATURED GRID -->
+  <section id="featured" class="section pastel-bg">
+    <div class="container">
+      <h3 class="section-title">Featured Recipes</h3>
+
+      <div class="grid cards">
+        <article class="card soft">
+          <a class="card-link" href="recipe.html?food=vadapav">
+            <figure>
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjmBSjuR1OnhqQ0nI0fEO3zgPOHHdCTBwQ7A&s" alt="Vada Pav">
+            </figure>
+            <div class="card-body">
+              <h4>Vada Pav</h4>
+              <p class="muted">Mumbai, India • Snack</p>
+              <div class="meta">
+                <span>Prep 20m</span>
+                <span>Easy</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="card soft">
+          <a class="card-link" href="recipe.html?food=panipuri">
+            <figure>
+              <img src="https://cdn.uengage.io/uploads/64445/image-471433-1750505854.jpeg" alt="Pani Puri">
+            </figure>
+            <div class="card-body">
+              <h4>Pani Puri</h4>
+              <p class="muted">India • Street</p>
+              <div class="meta">
+                <span>Prep 25m</span>
+                <span>Moderate</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="card soft">
+          <a class="card-link" href="recipe.html?food=takoyaki">
+            <figure>
+              <img src="https://s.hungryghostfoodandtravel.com/media/20240912224148/takoyaki-recipe_done.png" alt="Takoyaki">
+            </figure>
+            <div class="card-body">
+              <h4>Takoyaki</h4>
+              <p class="muted">Japan • Street</p>
+              <div class="meta">
+                <span>Prep 30m</span>
+                <span>Moderate</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="card soft">
+          <a class="card-link" href="recipe.html?food=padthai">
+            <figure>
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuhZLwugJc_WnJm9Oir74D63awU0Jd21jQLw&s" alt="Pad Thai">
+            </figure>
+            <div class="card-body">
+              <h4>Pad Thai</h4>
+              <p class="muted">Thailand • Noodles</p>
+              <div class="meta">
+                <span>Prep 25m</span>
+                <span>Easy</span>
+              </div>
+            </div>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTRIES -->
+  <section id="countries" class="container section">
+    <h3 class="section-title">By Country</h3>
+
+    <div class="country-grid">
+      <div class="country-card">
+        <img src="https://t4.ftcdn.net/jpg/03/61/86/91/360_F_361869194_7JGmIOSj2iUNi0AYoVhVyhKvaN6PkOah.jpg" alt="India">
+        <div class="country-body">
+          <h4>India</h4>
+          <p class="muted">Vibrant & spicy street-food culture</p>
+          <a class="link" href="recipe.html?food=vadapav">View recipes →</a>
+        </div>
+      </div>
+
+      <div class="country-card">
+        <img src="https://rimage.gnst.jp/livejapan.com/public/article/detail/a/00/00/a0000370/img/basic/a0000370_main.jpg" alt="Japan">
+        <div class="country-body">
+          <h4>Japan</h4>
+          <p class="muted">Comforting snacks and delicate flavors</p>
+          <a class="link" href="recipe.html?food=takoyaki">View recipes →</a>
+        </div>
+      </div>
+
+      <div class="country-card">
+        <img src="https://t4.ftcdn.net/jpg/03/33/28/97/360_F_333289774_bzomN78ybYZQ8KfGpNhWpPc1ieBbJ2Ul.jpg" alt="China">
+        <div class="country-body">
+          <h4>China</h4>
+          <p class="muted">Dumplings, buns & noodle traditions</p>
+          <a class="link" href="recipe.html?food=dumplings">View recipes →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section pastel-bg-soft">
+    <div class="container narrow">
+      <h3 class="section-title">About This Project</h3>
+      <p class="lead">A small pastel-styled showcase for popular Asian street foods. Each recipe includes ingredients, step-by-step instructions, and fun facts — designed to be pretty, readable and mobile-first.</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 Taste of Asia — Pastel Aesthetic • Made with care</p>
+    </div>
+  </footer>
+
+  <!-- small script: smooth-scroll for anchors -->
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href');
+        if(id.length > 1){
+          e.preventDefault();
+          document.querySelector(id).scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
+    });
+  </script>
+</body>
+</html>

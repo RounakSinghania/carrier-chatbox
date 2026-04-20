@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SoleSpace — Puma Shoes</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,Helvetica,sans-serif;background:#f3f4f6;color:#111}
+    header{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.06);position:sticky;top:0;z-index:50}
+    .wrap{max-width:1100px;margin:auto;padding:18px}
+    .header-row{display:flex;justify-content:space-between;align-items:center}
+    nav a{text-decoration:none;margin-left:16px;color:#111;font-weight:600}
+
+
+    .hero{margin:25px 0;border-radius:15px;overflow:hidden}
+    .hero-bg{
+      background:url('https://images.unsplash.com/photo-1528701800484-9c8c9a9fbb1b?q=80') center/cover;
+      padding:90px 20px;text-align:center;color:#fff;
+    }
+
+    
+    .categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin:30px 0}
+    .cat{background:#fff;padding:18px;text-align:center;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.08);font-weight:700}
+
+    
+    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+    .card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.05);transition:.2s}
+    .card:hover{transform:translateY(-6px)}
+    .media img{width:100%;height:190px;object-fit:cover}
+    .card-body{padding:14px}
+    .meta{color:#666;font-size:.9rem}
+    .price{font-weight:700;margin:8px 0}
+    .actions{display:flex;gap:10px;margin-top:12px}
+    button{padding:8px 12px;border:0;border-radius:6px;background:#111;color:#fff;cursor:pointer;font-weight:600}
+    .secondary{background:#fff;color:#111;border:1px solid #ddd}
+
+    
+    .panel{background:#fff;padding:25px;border-radius:12px;margin:30px 0;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+
+    footer{text-align:center;padding:20px;color:#555;margin-top:25px}
+    .social a{font-size:1.5rem;margin:0 10px;text-decoration:none;color:#111}
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-row">
+    <div class="logo" style="font-weight:800;font-size:1.3rem;">SoleSpace</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#products">Products</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  
+  <section id="home" class="hero" style="position:relative;">
+    <div class="media"style="background-position: center;" ><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFXeOFf_7HEHqQiT_IxCZT4kM5nZO9tOkMIQ&s"/>
+        
+    <div class="hero-bg" style="position:relative; backdrop-filter:brightness(0.7);">
+      <h1 style="font-size:2.6rem;font-weight:900;letter-spacing:1px;text-shadow:0 3px 6px rgba(0,0,0,.4);animation:fadeSlide 1s ease;">PUMA EXCLUSIVE COLLECTION</h1>
+      <p style="font-size:1.15rem;margin-top:10px;color:#f1f1f1;animation:fadeSlide 1.5s ease;">High performance • Premium comfort • Latest styles</p>
+      <a href="#products" style="margin-top:18px;display:inline-block;padding:12px 22px;background:#ffffff;color:#111;border-radius:8px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);transition:.2s;">Shop Now</a>
+      
+    </div>
+  </section>
+
+  <style>
+    @keyframes fadeSlide{
+      from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}
+    }
+  </style>
+
+
+  <h2 style="font-size:1.4rem;margin-bottom:12px;">Shop by Category</h2>
+  <div class="categories">
+    <div class="cat">Running Shoes</div>
+    <div class="cat">Training Shoes</div>
+    <div class="cat">Casual Shoes</div>
+    <div class="cat">Sneakers</div>
+  </div>
+
+  
+  <h2 id="products" style="font-size:1.4rem;margin-bottom:12px;">Featured Puma Shoes</h2>
+  <section class="products">
+
+    
+    <article class="card"><div class="media"><img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_600,h_600/global/377758/01/fnd/IND/fmt/png/ForeverRun-NITRO%E2%84%A2-Women's-Running-Shoes"></div><div class="card-body"><h3>Puma Runner</h3><div class="meta">Black / White</div><div class="price">₹4,999</div><div class="actions"><button>Add</button><button class="secondary">View</button></div></div></article>
+
+    <article class="card"><div class="media"><img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQQC_j-sxgOMAfa-vu4yb6ROW0H2Hyvm9y_wxXSnLN2RWac4D7rXmFX992pdCLqIsoIqTKjPsX8UTWnF4L-6PsLiNmJNViwCyTPdZlJVH9Rr9Qfxz4viXqgmA"></div><div class="card-body"><h3>Puma Street Classic</h3><div class="meta">Grey</div><div class="price">₹3,799</div><div class="actions"><button>Add</button><button class="secondary">View</button></div></div></article>
+
+    <article class="card"><div class="media"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80"></div><div class="card-body"><h3>Puma Flex</h3><div class="meta">White</div><div class="price">₹5,299</div><div class="actions"><button>Add</button><button class="secondary">View</button></div></div></article>
+
+    <article class="card"><div class="media"><img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/106880/03/sv01/fnd/IND/fmt/png/Eliminate-Pro-II-Indoor-Sports-Shoes"></div><div class="card-body"><h3>Puma Sport Pro</h3><div class="meta">Blue</div><div class="price">₹6,199</div><div class="actions"><button>Add</button><button class="secondary">View</button></div></div></article>
+
+    <article class="card"><div class="media"><img src="https://cdn-images.farfetch-contents.com/12/96/10/00/12961000_13556762_1000.jpg"></div><div class="card-body"><h3>Puma Thunder</h3><div class="meta">Black</div><div class="price">₹4,450</div><div class="actions"><button>Add</button><button class="secondary">View</button></div></div></article>
+
+    <article class="card"><div class="media"><img src="https://m.media-amazon.com/images/I/81L20mwLykL._AC_UY1000_.jpg"></div><div class="card-body"><h3>Puma Drift</h3><div class="meta">Red / Black</div><div class="price">₹5,899</div><div class="actions"><button>Add</button><button class="secondary">View</button></div></div></article>
+
+    <article class="card"><div class="media"><img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/381141/15/sv01/fnd/IND/fmt/png/Future-Rider-Soft-Women's-Sneakers"></div><div class="card-body"><h3>Puma Soft Ride</h3><div class="meta">Navy</div><div class="price">₹3,999</div><div class="actions"><button>Add</button><button class="secondary">View</button></div></div></article>
+
+    <article class="card"><div class="media"><img src="https://assets.myntassets.com/h_1440,q_75,w_1080/v1/assets/images/30165811/2025/3/4/dd068722-c450-4684-a5f5-e809c6fc9a841741084492453-Puma-Unisex-Road-Rider-Pace-Setter-Sneakers-3061741084492101-1.jpg"></div><div class="card-body"><h3>Puma Roadster</h3><div class="meta">White / Red</div><div class="price">₹4,299</div><div class="actions"><button>Add</button><button class="secondary">View</button></div></div></article>
+
+    <article class="card"><div class="media"><img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/108159/01/sv01/fnd/EEA/fmt/png/ULTRA-5-ULTIMATE-FG-Football-Boots-Unisex"></div><div class="card-body"><h3>Puma Ultra</h3><div class="meta">Grey / Yellow</div><div class="price">₹6,999</div><div class="actions"><button>Add</button><button class="secondary">View</button></div></div></article>
+
+    <article class="card"><div class="media"><img src="https://rukminim2.flixcart.com/image/480/640/xif0q/shoe/v/m/a/-original-imahgctkghahfcud.jpeg?q=90"></div><div class="card-body"><h3>Puma Active</h3><div class="meta">Blue / White</div><div class="price">₹5,499</div><div class="actions"><button>Add</button><button class="secondary">View</button></div></div></article>
+
+  </section>
+
+  
+  <section id="about" class="panel">
+    <h2>About SoleSpace</h2>
+    <p>SoleSpace is a premium sneaker showcase website focused on Puma’s finest designs. High performance, comfort and style — all in one place.</p>
+  </section>
+
+  
+  <section id="contact" class="panel">
+    <h2>Contact Us</h2>
+    <p>Email: support.solespace@gmail.com</p>
+    <p>Phone: +91 79802 68356</p>
+    <p>Location: Kolkata, West Bengal, India</p>

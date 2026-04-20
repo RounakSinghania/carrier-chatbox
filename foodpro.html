@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Taste of Asia — Pastel Street Food (25 Dishes)</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="foodpro.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <svg class="logo" width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <circle cx="12" cy="12" r="10" fill="#fff3f8"/>
+        <path d="M8 13c1.5 1 3.5 1 5 0" stroke="#ff9bb3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 8v.01" stroke="#ff9bb3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <h1>Taste of Asia</h1>
+        <p class="small">Pastel Street Food Showcase — 25 Dishes</p>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="#featured">Featured</a>
+      <a href="#countries">Countries</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h2>Pastel Flavors of Asia</h2>
+        <p>25 iconic street-food recipes—from India to Korea—presented in a soft pastel aesthetic.</p>
+        <a class="btn" href="#featured">Explore Recipes</a>
+      </div>
+
+      <div class="hero-art">
+        <div class="float-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShwYrVcIr4VONXvVcy2wFeBtyH76UucAJ3og&s" alt="Pad Thai">
+          <div class="float-card-label">
+            <strong>Pad Thai</strong>
+            <span>Thailand</span>
+          </div>
+        </div>
+
+        <svg class="blob blob-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#ffdbe8" d="M40.6,-54.8C50.6,-47.8,56.6,-35.3,61.2,-21.9C65.8,-8.6,69.1,5.6,64.2,17.8C59.3,30.1,46.3,40.3,33.3,47.6C20.4,54.9,7.2,59.3,-5.8,63.2C-18.8,67.2,-37.6,70.6,-50,63C-62.4,55.4,-68.5,36.8,-70.6,19.1C-72.7,1.4,-70.7,-15.4,-62.5,-28.8C-54.2,-42.1,-39.8,-52,-24.6,-57.2C-9.4,-62.4,7.7,-62.9,22.6,-58.3C37.5,-53.6,51.9,-45.6,40.6,-54.8Z" transform="translate(100 100)" />
+        </svg>
+
+        <svg class="blob blob-2" viewBox="0 0 200 200">
+          <path fill="#e7f7ff" d="M29.8,-35.3C44.7,-28.5,63.8,-24.8,72.3,-14.9C80.8,-5.1,78.6,11.3,69.2,23.1C59.7,34.8,43.9,42,28.6,47.6C13.3,53.2,-1.5,57.3,-14.2,53C-26.8,48.8,-37.4,36.2,-45.3,22.7C-53.2,9.1,-58.4,-6.3,-53.8,-20.6C-49.2,-35,-34.8,-48.4,-19,-55C-3.3,-61.6,13.8,-61.4,29.8,-35.3Z" transform="translate(100 100)"/>
+        </svg>
+      </div>
+    </div>
+    <div class="wave-divider" aria-hidden>
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#fff"></path></svg>
+    </div>
+  </section>
+
+  <section id="featured" class="section pastel-bg">
+    <div class="container">
+      <h3 class="section-title">Featured Recipes — Quick Pick</h3>
+
+      <div class="grid cards">
+        <!-- (Top 8 showcased) -->
+        <article class="card soft"><a class="card-link" href="recipe.html?food=vadapav"><figure><img src="https://www.cookwithmanali.com/wp-content/uploads/2018/04/Vada-Pav.jpg" alt="Vada Pav"></figure><div class="card-body"><h4>Vada Pav</h4><p class="muted">India</p><div class="meta"><span>20m</span><span>Easy</span></div></div></a></article>
+
+        <article class="card soft"><a class="card-link" href="recipe.html?food=panipuri"><figure><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_l5WbKX3EnQKhxrcq3n8zjjThXGqgvgK8Aw&s" alt="Pani Puri"></figure><div class="card-body"><h4>Pani Puri</h4><p class="muted">India</p><div class="meta"><span>25m</span><span>Moderate</span></div></div></a></article>
+
+        <article class="card soft"><a class="card-link" href="recipe.html?food=takoyaki"><figure><img src="https://s.hungryghostfoodandtravel.com/media/20240912224148/takoyaki-recipe_done.png" alt="Takoyaki"></figure><div class="card-body"><h4>Takoyaki</h4><p class="muted">Japan</p><div class="meta"><span>30m</span><span>Moderate</span></div></div></a></article>
+
+        <article class="card soft"><a class="card-link" href="recipe.html?food=ramen"><figure><img src="https://www.kikkoman.eu/fileadmin/_processed_/f/0/csm_1103-recipe-page-Spicy-Kimchi-Ramen-with-Pork_desktop_c8dc4e51e8.jpg" alt="Ramen"></figure><div class="card-body"><h4>Ramen</h4><p class="muted">Japan</p><div class="meta"><span>40m</span><span>Moderate</span></div></div></a></article>
+
+        <article class="card soft"><a class="card-link" href="recipe.html?food=dumplings"><figure><img src="https://www.recipetineats.com/tachyon/2022/09/Vegetable-Dumplings-1-on-plate.jpg?resize=500%2C375" alt="Dumplings"></figure><div class="card-body"><h4>Dumplings</h4><p class="muted">China</p><div class="meta"><span>35m</span><span>Moderate</span></div></div></a></article>
+
+        <article class="card soft"><a class="card-link" href="recipe.html?food=padthai"><figure><img src="https://i.imgur.com/LHBE4Km.jpg" alt="Pad Thai"></figure><div class="card-body"><h4>Pad Thai</h4><p class="muted">Thailand</p><div class="meta"><span>25m</span><span>Easy</span></div></div></a></article>
+
+        <article class="card soft"><a class="card-link" href="recipe.html?food=tteokbokki"><figure><img src="https://i.imgur.com/j30xJ4X.jpg" alt="Tteokbokki"></figure><div class="card-body"><h4>Tteokbokki</h4><p class="muted">Korea</p><div class="meta"><span>20m</span><span>Easy</span></div></div></a></article>
+
+        <article class="card soft"><a class="card-link" href="recipe.html?food=koreanfried"><figure><img src="https://i.imgur.com/Q7i6QPa.jpg" alt="Korean Fried Chicken"></figure><div class="card-body"><h4>Korean Fried Chicken</h4><p class="muted">Korea</p><div class="meta"><span>35m</span><span>Moderate</span></div></div></a></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="countries" class="container section">
+    <h3 class="section-title">All Dishes — Browse by Food (25)</h3>
+    <div class="grid cards">
+      <!-- INDIA (5) -->
+      <article class="card soft"><a class="card-link" href="recipe.html?food=vadapav"><figure><img src="https://i.imgur.com/8R5ZzjB.jpg" alt="Vada Pav"></figure><div class="card-body"><h4>Vada Pav</h4><p class="muted">India</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=panipuri"><figure><img src="https://i.imgur.com/v3qYZLG.jpg" alt="Pani Puri"></figure><div class="card-body"><h4>Pani Puri</h4><p class="muted">India</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=samosa"><figure><img src="https://i.imgur.com/ZdtjhIq.jpg" alt="Samosa"></figure><div class="card-body"><h4>Samosa</h4><p class="muted">India</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=masaladosa"><figure><img src="https://i.imgur.com/mTqgd1S.jpg" alt="Masala Dosa"></figure><div class="card-body"><h4>Masala Dosa</h4><p class="muted">India</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=pavbhaji"><figure><img src="https://i.imgur.com/9wqgQxk.jpg" alt="Pav Bhaji"></figure><div class="card-body"><h4>Pav Bhaji</h4><p class="muted">India</p></div></a></article>
+
+      <!-- JAPAN (5) -->
+      <article class="card soft"><a class="card-link" href="recipe.html?food=takoyaki"><figure><img src="https://i.imgur.com/1RLeB8j.jpg" alt="Takoyaki"></figure><div class="card-body"><h4>Takoyaki</h4><p class="muted">Japan</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=ramen"><figure><img src="https://i.imgur.com/oYQmTU8.jpg" alt="Ramen"></figure><div class="card-body"><h4>Ramen</h4><p class="muted">Japan</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=okonomiyaki"><figure><img src="https://i.imgur.com/1LBkAc6.jpg" alt="Okonomiyaki"></figure><div class="card-body"><h4>Okonomiyaki</h4><p class="muted">Japan</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=onigiri"><figure><img src="https://i.imgur.com/I4iC5dN.jpg" alt="Onigiri"></figure><div class="card-body"><h4>Onigiri</h4><p class="muted">Japan</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=karaage"><figure><img src="https://i.imgur.com/3sVq5hd.jpg" alt="Karaage"></figure><div class="card-body"><h4>Karaage</h4><p class="muted">Japan</p></div></a></article>
+
+      <!-- CHINA (5) -->
+      <article class="card soft"><a class="card-link" href="recipe.html?food=dumplings"><figure><img src="https://i.imgur.com/B0w3XuP.jpg" alt="Dumplings"></figure><div class="card-body"><h4>Dumplings</h4><p class="muted">China</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=chinanoodles"><figure><img src="https://i.imgur.com/yVHxEhZ.jpg" alt="Chinese Noodles"></figure><div class="card-body"><h4>Chinese Noodles</h4><p class="muted">China</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=baobuns"><figure><img src="https://i.imgur.com/hjKh6MN.jpg" alt="Bao Buns"></figure><div class="card-body"><h4>Bao Buns</h4><p class="muted">China</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=hotsoup"><figure><img src="https://i.imgur.com/eB88dAx.jpg" alt="Hot & Sour Soup"></figure><div class="card-body"><h4>Hot & Sour Soup</h4><p class="muted">China</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=scallionpancake"><figure><img src="https://i.imgur.com/6qX8O9l.jpg" alt="Scallion Pancake"></figure><div class="card-body"><h4>Scallion Pancake</h4><p class="muted">China</p></div></a></article>
+
+      <!-- THAILAND (5) -->
+      <article class="card soft"><a class="card-link" href="recipe.html?food=padthai"><figure><img src="https://i.imgur.com/LHBE4Km.jpg" alt="Pad Thai"></figure><div class="card-body"><h4>Pad Thai</h4><p class="muted">Thailand</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=mangorice"><figure><img src="https://i.imgur.com/M4oT0AZ.jpg" alt="Mango Sticky Rice"></figure><div class="card-body"><h4>Mango Sticky Rice</h4><p class="muted">Thailand</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=greencurry"><figure><img src="https://i.imgur.com/3R4sc9Q.jpg" alt="Thai Green Curry"></figure><div class="card-body"><h4>Thai Green Curry</h4><p class="muted">Thailand</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=somtam"><figure><img src="https://i.imgur.com/YPXJKaM.jpg" alt="Som Tam"></figure><div class="card-body"><h4>Som Tam</h4><p class="muted">Thailand</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=tomyum"><figure><img src="https://i.imgur.com/x5d0A2U.jpg" alt="Tom Yum"></figure><div class="card-body"><h4>Tom Yum Soup</h4><p class="muted">Thailand</p></div></a></article>
+
+      <!-- KOREA (5) -->
+      <article class="card soft"><a class="card-link" href="recipe.html?food=tteokbokki"><figure><img src="https://i.imgur.com/j30xJ4X.jpg" alt="Tteokbokki"></figure><div class="card-body"><h4>Tteokbokki</h4><p class="muted">Korea</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=koreanfried"><figure><img src="https://i.imgur.com/Q7i6QPa.jpg" alt="Korean Fried Chicken"></figure><div class="card-body"><h4>Korean Fried Chicken</h4><p class="muted">Korea</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=kimchirice"><figure><img src="https://i.imgur.com/0q7G2s7.jpg" alt="Kimchi Fried Rice"></figure><div class="card-body"><h4>Kimchi Fried Rice</h4><p class="muted">Korea</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=japchae"><figure><img src="https://i.imgur.com/2vJQ8sF.jpg" alt="Japchae"></figure><div class="card-body"><h4>Japchae</h4><p class="muted">Korea</p></div></a></article>
+
+      <article class="card soft"><a class="card-link" href="recipe.html?food=hotteok"><figure><img src="https://i.imgur.com/4kJTQ5V.jpg" alt="Hotteok"></figure><div class="card-body"><h4>Hotteok</h4><p class="muted">Korea</p></div></a></article>
+
+    </div>
+  </section>
+
+  <section id="about" class="section pastel-bg-soft">
+    <div class="container narrow">
+      <h3 class="section-title">About This Project</h3>
+      <p class="lead">Pastel-styled showcase for 25 popular Asian street foods. Each recipe includes ingredients, steps, timings and quick facts. Mobile-first, responsive, and easy to extend.</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 Taste of Asia — Pastel Aesthetic • Made with care</p>
+    </div>
+  </footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const id = a.getAttribute('href');
+      if(id.length > 1){
+        e.preventDefault();
+        document.querySelector(id).scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+</script>
+</body>
+</html>
